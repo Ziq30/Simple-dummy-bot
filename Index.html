@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>simple dummy bot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #222;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: left;
+            font-size: 20px;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            max-width: calc(100% - 40px); /* Adjusted width to leave space for padding */
+        }
+
+        .message-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            padding: 10px;
+            border-radius: 20px;
+            font-size: 16px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: #fff;
+            align-self: flex-end;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            background-color: #f0f0f0;
+            color: #000;
+            align-self: flex-start;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin-right: auto;
+        }
+
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .menu-icon {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .menu-icon i {
+            font-size: 24px;
+        }
+
+        .chat-input-container {
+            background-color: #333;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            bottom: 0;
+            z-index: 1; /* Ensure the input field stays above the message container */
+            word-wrap: break-word;
+       }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            font-size: 16px;
+            border-radius: 20px;
+            outline: none;
+            background-color: #444;
+            color: #fff;
+            margin-right: 10px;
+            resize: vertical;
+            max-height: 100px; /* Limit the maximum height of the input field */
+            max-width: calc(100% - 70px) ; /* Limit the width of the input field */
+        }
+
+        .send-button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            background-color: #fff;
+            color: #000;
+            font-size: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+      
+    </style>
+</head>
+<body>
+  
+<div class="chat-container">
+
+    <div class="chat-header">
+      <span class="menu-icon" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+        </span>
+        pixie
+    </div>
+  
+    <div class="chat-messages" id="chat-messages">
+        <!-- Dummy Bot Message -->
+        <div class="message-container">
+            <div class="message bot-message">
+                Hello! How can I help you today?
+            </div>
+            <img src="bot_profile.jpg" alt="Bot Profile" class="profile-picture">
+        </div>
+    </div>
+    <div class="chat-input-container">
+        <input type="text" class="chat-input" placeholder="Type your message..." onkeydown="handleKeyDown(event)">
+        <button class="send-button" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>simple dummy bot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #222;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: left;
+            font-size: 20px;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            max-width: calc(100% - 40px); /* Adjusted width to leave space for padding */
+        }
+
+        .message-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            padding: 10px;
+            border-radius: 20px;
+            font-size: 16px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: #fff;
+            align-self: flex-end;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            background-color: #f0f0f0;
+            color: #000;
+            align-self: flex-start;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin-right: auto;
+        }
+
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .menu-icon {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .menu-icon i {
+            font-size: 24px;
+        }
+
+        .chat-input-container {
+            background-color: #333;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            bottom: 0;
+            z-index: 1; /* Ensure the input field stays above the message container */
+            word-wrap: break-word;
+       }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            font-size: 16px;
+            border-radius: 20px;
+            outline: none;
+            background-color: #444;
+            color: #fff;
+            margin-right: 10px;
+            resize: vertical;
+            max-height: 100px; /* Limit the maximum height of the input field */
+            max-width: calc(100% - 70px) ; /* Limit the width of the input field */
+        }
+
+        .send-button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            background-color: #fff;
+            color: #000;
+            font-size: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+      
+    </style>
+</head>
+<body>
+  
+<div class="chat-container">
+
+    <div class="chat-header">
+      <span class="menu-icon" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+        </span>
+        pixie
+    </div>
+  
+    <div class="chat-messages" id="chat-messages">
+        <!-- Dummy Bot Message -->
+        <div class="message-container">
+            <div class="message bot-message">
+                Hello! How can I help you today?
+            </div>
+            <img src="bot_profile.jpg" alt="Bot Profile" class="profile-picture">
+        </div>
+    </div>
+    <div class="chat-input-container">
+        <input type="text" class="chat-input" placeholder="Type your message..." onkeydown="handleKeyDown(event)">
+        <button class="send-button" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+    // Array of responses
+    const responses = [
+        "Fine, thank you!",
+        "Great, thanks!",
+        "Doing well, thanks for asking!",
+        "Not too bad!",
+        "Could be better, but hanging in there.",
+        "Not great, but I'll survive.",
+        "Eh, could be worse.",
+        "Meh, same old.",
+        "Not so good, but I'll manage.",
+        "Could use some cheering up, but I'm okay."
+    ];
+
+    // Function to select a random response
+    function getRandomResponse() {
+        const randomIndex = Math.floor(Math.random() * responses.length);
+        return responses[randomIndex];
+    }
+
+    // Function to toggle menu
+    function toggleMenu() {
+        menu.style.display = "block";
+        //alert('Menu clicked!');
+    }
+    function closeMenu(){ menu.style.display = "none";}
+    // Function to handle keydown event on input field
+    function handleKeyDown(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    }
+
+    // Function to send user message
+    function sendMessage() {
+        const inputField = document.querySelector('.chat-input');
+        const message = inputField.value.trim();
+
+        inputField.value = '';
+        displayUserMessage(message);
+        analyzeAndRespond(message);
+    }
+
+    // Function to display user message
+    function displayUserMessage(message) {
+        const messagesContainer = document.getElementById('chat-messages');
+
+        const userMessageContainer = document.createElement('div');
+        userMessageContainer.classList.add('message-container');
+
+        const userMessage = document.createElement('div');
+        userMessage.textContent = message;
+        userMessage.classList.add('message', 'user-message');
+
+        userMessageContainer.appendChild(userMessage);
+        messagesContainer.appendChild(userMessageContainer);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // Function to analyze user message and generate response
+    function analyzeAndRespond(userMessage) {
+        if (userMessage.toLowerCase().includes('hello') && userMessage.toLowerCase().includes('how') && userMessage.toLowerCase().includes('you')) {
+            sendRandomReply();
+        } else {
+            sendReply("I'm just a dummy bot. I don't know how to respond!");
+        }
+    }
+       function analyzeAndRespond(userMessage) {
+        if (userMessage.toLowerCase().includes('hello') ) {
+            sendReply("hey there what may I help you with");
+        } else {
+            sendReply("I'm just a dummy bot. I don't know how to respond!");
+        }
+    }
+    // Function to send a random reply
+    function sendRandomReply() {
+        sendReply(getRandomResponse());
+    }
+
+    // Function to send reply
+    function sendReply(replyMessage) {
+        setTimeout(() => {
+            const messagesContainer = document.getElementById('chat-messages');
+
+            const botResponseContainer = document.createElement('div');
+            botResponseContainer.classList.add('message-container');
+
+            const botResponse = document.createElement('div');
+            botResponse.textContent = replyMessage;
+            botResponse.classList.add('message', 'bot-message');
+
+            const botProfilePicture = document.createElement('img');
+            botProfilePicture.src = 'bot_profile.jpg'; // Replace with the bot's profile picture
+            botProfilePicture.alt = 'Bot Profile';
+            botProfilePicture.classList.add('profile-picture');
+
+            botResponseContainer.appendChild(botResponse);
+            botResponseContainer.appendChild(botProfilePicture);
+
+            messagesContainer.appendChild(botResponseContainer);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 500);
+    }
+</script>
+
+</body>
+</html>￼Enter
